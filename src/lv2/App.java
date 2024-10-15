@@ -1,15 +1,10 @@
-package lv1;
+package lv2;
 
-import lv2.Calculator;
-
-import java.util.*;
+import java.util.Scanner;
 
 public class App {
 
-    static int[] nums = new int[2]; // 숫자 1,2 배열
     static Scanner sc = new Scanner(System.in); //sc 함수에서 호출하기 위함
-    static Calculator calculator = new Calculator();
-
     public static void main(String[] args) {
         // 실행
         __init__();
@@ -17,12 +12,23 @@ public class App {
 
     public static void __init__() {
         // 초기값
+        Calculator calculator = new Calculator();
         boolean isRunning = true; // exit => false
+
         while (isRunning) {
             // 숫자 입력 받기
-            inputNum();
-            // 연산자 입력 받기
-            inputOperator();
+            inputNum(calculator);
+            // 연산자 입력 받
+            inputOperator(calculator);
+            // 계산 출력
+            calculator.calculate(calculator);
+
+            // remove는 사이즈가 3일 때, 삭제를 수행
+            if (calculator.getCalculateResultSize() > 2) {
+                calculator.removeCalculateResult();
+            }
+            // 결과를 출력
+            System.out.println(calculator.getCalculateResult());
 
             // 한 번더 계산할지 물어보기
             System.out.print("더 계산하시겠습니까? (exit 입력 시 종료) : ");
@@ -35,11 +41,12 @@ public class App {
         }
     }
 
-    public static void inputNum() {
+    public static void inputNum(Calculator calculator) {
         // nextLine()로 받을 때, 저장할 변수
         // nextInt() 시, 스페이스로 여러가지 입력이 가능
         // exception 오류를 잡기위함
         String stringNum;
+        int[] nums = new int[2]; // 숫자 1,2 배열
 
         for (int i = 0; i < nums.length; i++) {
             while (true) {
@@ -54,8 +61,8 @@ public class App {
                     System.out.println("잘못된 입력을 하셨습니다. 다시 입력해주세요");
                 }
             }
-
         }
+        calculator.setNumber(nums);
     }
 
     //Integer.parseInt()가 작동하면 true, 아니면 false 리턴
@@ -68,7 +75,7 @@ public class App {
         }
     }
 
-    public static void inputOperator() {
+    public static void inputOperator(Calculator calculator) {
         String stringOperator;
 
         // 문자열이 한 글자이면 while 문 break, 아니면 무한 루프를 통해 정해진 연산자만 받도록
@@ -77,37 +84,13 @@ public class App {
             stringOperator = sc.nextLine();
             if (stringOperator.length() > 1) {
                 System.out.println("+, -, *, /  중 하나만 입력해주세요 !!!");
+            } else if (stringOperator.equals("/") && calculator.getSecondNumber()==0) {
+                System.out.println("두 번째 수에는 0이 들어가면 나누기가 불가능합니다. 사칙연산을 다시 입력해주세요!!");
             } else {
-                printResult(stringOperator);
+                calculator.setOperator(stringOperator);
                 break;
             }
         }
 
     }
-
-    public static void printResult(String stringOperator) {
-
-        switch (stringOperator) {
-            case "+":
-                System.out.printf("%d + %d = %d 입니다\n", nums[0], nums[1], nums[0] + nums[1]);
-                break;
-            case "-":
-                System.out.printf("%d + %d = %d 입니다\n", nums[0], nums[1], nums[0] - nums[1]);
-                break;
-            case "*":
-                System.out.printf("%d + %d = %d 입니다\n", nums[0], nums[1], nums[0] * nums[1]);
-                break;
-            case "/":
-                if (nums[1] == 0) {
-                    System.out.println("두 번째 수에는 0이 들어가면 나누기가 불가능합니다. 수를 다시 입력해주세요!!");
-                } else {
-                    System.out.printf("%d + %d = %d 입니다\n", nums[0], nums[1], nums[0] / nums[1]);
-                }
-                break;
-            default:
-                System.out.println("잘못된 연산자입니다.");
-        }
-
-    }
-
 }
