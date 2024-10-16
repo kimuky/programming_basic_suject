@@ -1,5 +1,7 @@
 package lv2;
 
+import lv2.operations.AbstractOperation;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -7,7 +9,12 @@ public class Calculator {
     private final Queue<Integer> calculateResult = new LinkedList<>();
     private int firstNumber;
     private int secondNumber;
-    private String operator;
+    private int result;
+    private AbstractOperation abstractOperation;
+
+    public void setAbstractOperation(AbstractOperation abstractOperation) {
+        this.abstractOperation = abstractOperation;
+    }
 
     public void setNumber(int[] nums) {
         this.firstNumber = nums[0];
@@ -22,45 +29,26 @@ public class Calculator {
         return this.secondNumber;
     }
 
-    public void setOperator(String operator) {
-        this.operator = operator;
+    public boolean isSecondNumberZero() {
+        return secondNumber == 0;
     }
 
-    public String getOperator() {
-        return this.operator;
-    }
-
-    public String getCalculateResult() {
+    public String getCalculateResultAll() {
         return this.calculateResult.toString();
     }
-    public int getCalculateResultSize() {
-        return this.calculateResult.size();
+
+    public void printCalculateResult() {
+        System.out.println("답은 " + result + " 입니다.");
     }
-    public void removeCalculateResult() {
+
+    public void removeCalculateResultFirst() {
         this.calculateResult.poll();
     }
 
-    public void calculate(Calculator calculator) {
-        switch (operator) {
-            case "+":
-                System.out.printf("%d + %d = %d 입니다\n", firstNumber, secondNumber, firstNumber + secondNumber);
-                this.calculateResult.add(firstNumber + secondNumber);
-                break;
-            case "-":
-                System.out.printf("%d - %d = %d 입니다\n", firstNumber, secondNumber, firstNumber - secondNumber);
-                this.calculateResult.add(firstNumber - secondNumber);
-                break;
-            case "*":
-                System.out.printf("%d * %d = %d 입니다\n", firstNumber, secondNumber, firstNumber * secondNumber);
-                this.calculateResult.add(firstNumber * secondNumber);
-                break;
-            case "/":
-                System.out.printf("%d / %d = %d 입니다\n", firstNumber, secondNumber, firstNumber / secondNumber);
-                this.calculateResult.add(firstNumber / secondNumber);
-                break;
-            default:
-                System.out.println("잘못된 연산자입니다.");
-        }
+    public void calculate() {
+        int result = abstractOperation.operate(firstNumber, secondNumber);
+        this.result = result;
+        this.calculateResult.add(result);
     }
 
 }

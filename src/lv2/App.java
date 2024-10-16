@@ -1,94 +1,104 @@
 package lv2;
 
-import java.util.Scanner;
+import lv2.utils.InputRequester;
+import lv2.utils.PrintError;
+import lv2.utils.Validator;
 
 public class App {
+    // 사용할 클래스 선언
+    Calculator calculator;
+    Validator validator;
+    InputRequester inputRequester;
+    PrintError printError;
 
-    static Scanner sc = new Scanner(System.in); //sc 함수에서 호출하기 위함
-    public static void main(String[] args) {
-        // 실행
-        __init__();
+    // App 의 생성자
+    public App(Calculator calculator, Validator validator, InputRequester inputRequester, PrintError printError) {
+        this.calculator = calculator;
+        this.validator = validator;
+        this.inputRequester = inputRequester;
+        this.printError = printError;
     }
 
-    public static void __init__() {
-        // 초기값
-        Calculator calculator = new Calculator();
-        boolean isRunning = true; // exit => false
+    // 메인
+    public static void main(String[] args) {
+        App app = new App(new Calculator(), new Validator(), new InputRequester(), new PrintError());
+        app.start();
+    }
+
+    // 실행
+    public void start() {
+        boolean isRunning = true; // exit => isRunning (false)
 
         while (isRunning) {
-            // 숫자 입력 받기
-            inputNum(calculator);
-            // 연산자 입력 받
-            inputOperator(calculator);
-            // 계산 출력
-            calculator.calculate(calculator);
+            // 숫자 입력
+            // inputNum() :  정수형 배열을 반환
+            // calculator.setNumber : Setter 를 통해 반환 값을 할당
+            calculator.setNumber(inputNum());
 
-            // remove는 사이즈가 3일 때, 삭제를 수행
-            if (calculator.getCalculateResultSize() > 2) {
-                calculator.removeCalculateResult();
+            // 연산자 입력
+            // inputOperator : 연산자가 문제 없으면 calculator.setOperation 을 해줌
+            inputOperator();
+
+            // 연산
+            calculator.calculate();
+
+            // 출력
+            calculator.printCalculateResult();
+
+            // 삭제 의사를 물어보고 "네", "yes" 가 나오면 삭제
+            if (inputRequester.isRemove(calculator)) {
+                calculator.removeCalculateResultFirst();
             }
-            // 결과를 출력
-            System.out.println(calculator.getCalculateResult());
-
-            // 한 번더 계산할지 물어보기
-            System.out.print("더 계산하시겠습니까? (exit 입력 시 종료) : ");
-            String askCalculate = sc.nextLine();
-            // exit 을 입력 받으면 종료
-            if (askCalculate.equals("exit")) {
+            // 나갈 의사를 물어보고 "exit"을 입력 시, 프로세스 종료
+            if (inputRequester.isExit()) {
                 isRunning = false;
             }
 
         }
     }
 
-    public static void inputNum(Calculator calculator) {
-        // nextLine()로 받을 때, 저장할 변수
-        // nextInt() 시, 스페이스로 여러가지 입력이 가능
-        // exception 오류를 잡기위함
-        String stringNum;
-        int[] nums = new int[2]; // 숫자 1,2 배열
+    public int[] inputNum() {
+        String stringNumber;
+        int[] nums = new int[2]; // 첫번째 숫자, 두번째 숫자 배열로 저장하기 위해
 
+        // 배열 길이가 2 -> num[0], nums[1]에 "정수형" 반환하기 위해서
         for (int i = 0; i < nums.length; i++) {
+            // while 은 문제가 있는 값을 받아올 시, 해당 인덱스에 다시 값을 지정해주기 위함
             while (true) {
-                System.out.printf(" %d 번째 숫자를 입력해주세요 : ", i + 1);
-                stringNum = sc.nextLine();
+                // scanner 로 받은 값을 stringNumber 에 저장
+                stringNumber = inputRequester.requestNthNumber(i);
+                // Setter 를 통해 지정
+                validator.setAnyString(stringNumber);
 
-                // 숫자이면 while 문 break, 숫자가 아니면 무한 루프를 통해 정수형을 입력 받음
-                if (isNumber(stringNum)) {
-                    nums[i] = Integer.parseInt(stringNum);
+                // isIntValid 를 통해 정수형이 반환 되면 while 문 빠져나옴
+                if (validator.isIntValid()) {
+                    nums[i] = validator.stringToIntNumber();
                     break;
                 } else {
-                    System.out.println("잘못된 입력을 하셨습니다. 다시 입력해주세요");
+                    printError.printInvalidInput();
                 }
             }
         }
-        calculator.setNumber(nums);
+        // 첫번째 두번째 숫자들이 담긴 배열을 반환
+        return nums;
     }
 
-    //Integer.parseInt()가 작동하면 true, 아니면 false 리턴
-    public static boolean isNumber(String number) {
-        try {
-            int intNum = Integer.parseInt(number);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    public static void inputOperator(Calculator calculator) {
+    public void inputOperator() {
         String stringOperator;
 
-        // 문자열이 한 글자이면 while 문 break, 아니면 무한 루프를 통해 정해진 연산자만 받도록
+        // 연산자가 문제없을 때까지 무한 루프
         while (true) {
-            System.out.print("사칙연산 기호를 입력하세요: ");
-            stringOperator = sc.nextLine();
-            if (stringOperator.length() > 1) {
-                System.out.println("+, -, *, /  중 하나만 입력해주세요 !!!");
-            } else if (stringOperator.equals("/") && calculator.getSecondNumber()==0) {
-                System.out.println("두 번째 수에는 0이 들어가면 나누기가 불가능합니다. 사칙연산을 다시 입력해주세요!!");
-            } else {
-                calculator.setOperator(stringOperator);
+            // 연산자를 stringOperator 에 할당
+            stringOperator = inputRequester.requestOperator();
+            validator.setAnyString(stringOperator);
+
+            // switch case default 를 통해 오류가 생기면 while 무한 루프
+            // 문제없을 시, calculator operation 을 지정하고 루프를 빠져나옴
+            try {
+                validator.isOperatorValid(calculator, stringOperator);
                 break;
+            } catch (IllegalArgumentException | ArithmeticException e) {
+                System.out.println(e.getMessage());
             }
         }
 
