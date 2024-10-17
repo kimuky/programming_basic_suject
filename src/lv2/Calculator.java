@@ -4,7 +4,7 @@ import lv2.operations.*;
 
 import java.util.LinkedList;
 import java.util.Queue;
-// test
+// test2
 public class Calculator {
     private final Queue<Integer> calculateResult = new LinkedList<>();
     private int firstNumber;
