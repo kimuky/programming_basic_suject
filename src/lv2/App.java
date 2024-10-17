@@ -38,7 +38,6 @@ public class App {
             // 연산자 입력
             // inputOperator : 연산자가 문제 없으면 calculator.setOperation 을 해줌
             inputOperator();
-
             // 연산
             calculator.calculate();
 
@@ -95,7 +94,7 @@ public class App {
             // switch case default 를 통해 오류가 생기면 while 무한 루프
             // 문제없을 시, calculator operation 을 지정하고 루프를 빠져나옴
             try {
-                validator.isOperatorValid(calculator, stringOperator);
+                calculator.setOperator(stringOperator);
                 break;
             } catch (IllegalArgumentException | ArithmeticException e) {
                 System.out.println(e.getMessage());

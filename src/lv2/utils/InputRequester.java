@@ -5,7 +5,7 @@ import lv2.Calculator;
 import java.util.Scanner;
 
 public class InputRequester {
-    static Scanner sc = new Scanner(System.in); //sc 함수에서 호출하기 위함
+    Scanner sc = new Scanner(System.in); //sc 함수에서 호출하기 위함
 
     public String requestNthNumber(int nth) {
         System.out.printf(" %d 번째 숫자를 입력해주세요 : ", nth + 1);

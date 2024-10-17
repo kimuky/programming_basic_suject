@@ -1,6 +1,6 @@
 package lv2;
 
-import lv2.operations.AbstractOperation;
+import lv2.operations.*;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -21,14 +21,6 @@ public class Calculator {
         this.secondNumber = nums[1];
     }
 
-    public int getFirstNumber() {
-        return this.firstNumber;
-    }
-
-    public int getSecondNumber() {
-        return this.secondNumber;
-    }
-
     public boolean isSecondNumberZero() {
         return secondNumber == 0;
     }
@@ -43,6 +35,28 @@ public class Calculator {
 
     public void removeCalculateResultFirst() {
         this.calculateResult.poll();
+    }
+
+    public void setOperator(String operator) {
+        switch (operator) {
+            case "+":
+                setAbstractOperation(new AddOperation());
+                break;
+            case "-":
+                setAbstractOperation(new SubstractOperation());
+                break;
+            case "*":
+                setAbstractOperation(new MultiplyOperation());
+                break;
+            case "/":
+                if (isSecondNumberZero()) {
+                    throw new ArithmeticException("나누기 시, 두 번째 숫자가 0이라 연산이 불가합니다. 다른 사칙연산을 입력해주세요");
+                }
+                setAbstractOperation(new DivideOperation());
+                break;
+            default:
+                throw new IllegalArgumentException("제대로 입력하지 않았습니다."); // 예외처리 좀 알아보기
+        }
     }
 
     public void calculate() {
