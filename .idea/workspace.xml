@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c4b8f1d7-2c89-465c-8890-a61f18977836" name="변경" comment="변경">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lv2/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lv2/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lv2/Calculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lv2/Calculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lv2/utils/InputRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lv2/utils/InputRequester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lv2/utils/Validator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lv2/utils/Validator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,27 +48,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.App.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.lv2.App.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
-    &quot;애플리케이션.App.executor&quot;: &quot;Run&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.App.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.lv2.App.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/xogus/IdeaProjects/programming_basic_suject/src/lv3",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.editor",
+    "vue.rearranger.settings.migration": "true",
+    "애플리케이션.App.executor": "Run"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\xogus\IdeaProjects\programming_basic_suject\src\lv3" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="lv3" />
       <recent name="lv2.operations" />
       <recent name="lv2" />
     </key>
@@ -134,7 +135,7 @@
       <workItem from="1729039056638" duration="30000" />
       <workItem from="1729045999962" duration="35355000" />
       <workItem from="1729088607360" duration="1206000" />
-      <workItem from="1729129997854" duration="4375000" />
+      <workItem from="1729129997854" duration="5664000" />
     </task>
     <servers />
   </component>

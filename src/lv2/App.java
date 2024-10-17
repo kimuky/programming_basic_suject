@@ -81,7 +81,7 @@ public class App {
         // 첫번째 두번째 숫자들이 담긴 배열을 반환
         return nums;
     }
-
+//test
     public void inputOperator() {
         String stringOperator;
 
